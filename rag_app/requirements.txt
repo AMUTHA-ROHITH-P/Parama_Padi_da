@@ -1,0 +1,28 @@
+# ── Core UI ───────────────────────────────────────────────────────────────────
+streamlit>=1.35.0
+
+# ── PDF Extraction ────────────────────────────────────────────────────────────
+pymupdf>=1.24.0          # primary parser (preserves headings, fast)
+pdfplumber>=0.11.0       # fallback parser
+
+# ── Embeddings — local & free ─────────────────────────────────────────────────
+sentence-transformers>=3.0.0   # downloads ~80 MB model on first run
+torch>=2.2.0                   # required by sentence-transformers
+
+# ── Vector Search ─────────────────────────────────────────────────────────────
+faiss-cpu>=1.8.0         # fast similarity search (CPU version)
+
+# ── LLM option 1 · Ollama (local, FREE) ──────────────────────────────────────
+ollama>=0.2.0            # Python client for the local Ollama server
+# Install Ollama itself from https://ollama.com (separate desktop app)
+
+# ── LLM option 2 · OpenAI (optional, needs API key) ──────────────────────────
+openai>=1.30.0
+
+# ── LLM option 3 · Anthropic Claude (optional, needs API key) ────────────────
+anthropic>=0.28.0
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+numpy>=1.26.0
+scikit-learn>=1.4.0      # TF-IDF fallback if sentence-transformers not installed
+python-dotenv>=1.0.0     # load .env file for API keys
