@@ -1,5 +1,8 @@
+import tempfile
+
 import streamlit as st
 import os
+import tempfile
 from pathlib import Path
 from rag_backend import (
     RAGBackend, OLLAMA_MODELS, OPENAI_MODELS, CLAUDE_MODELS,
@@ -115,18 +118,24 @@ with st.sidebar:
     st.markdown("### 📂 Upload Study Materials")
     uploaded_files = st.file_uploader("Upload PDF(s)", type=["pdf"], accept_multiple_files=True)
 
-    if uploaded_files:
-        for uf in uploaded_files:
-            if uf.name not in st.session_state.uploaded_docs:
-                with st.spinner(f"Processing {uf.name}…"):
-                    tmp = Path("/tmp") / uf.name
-                    tmp.write_bytes(uf.read())
-                    result = rag.ingest_pdf(str(tmp), uf.name)
-                if result["success"]:
-                    st.session_state.uploaded_docs.append(uf.name)
-                    st.success(f"✅ {uf.name} — {result['chunks']} chunks")
-                else:
-                    st.error(f"❌ {result['error']}")
+
+if uploaded_files:
+    for uf in uploaded_files:
+        if uf.name not in st.session_state.uploaded_docs:
+            with st.spinner(f"Processing {uf.name}…"):
+                # Create a safe temporary file
+                with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
+                    tmp_path = Path(tmp.name)
+                    tmp.write(uf.read())  # write uploaded file bytes
+                
+                # Ingest PDF into RAG
+                result = rag.ingest_pdf(str(tmp_path), uf.name)
+
+            if result["success"]:
+                st.session_state.uploaded_docs.append(uf.name)
+                st.success(f"✅ {uf.name} — {result['chunks']} chunks")
+            else:
+                st.error(f"❌ {result['error']}")
 
     st.divider()
     st.markdown("### 📑 Indexed Documents")

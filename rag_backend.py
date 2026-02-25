@@ -368,15 +368,15 @@ class VectorStore:
 # ── LLM Generator ─────────────────────────────────────────────────────────────
 
 # Models available per backend
-OLLAMA_MODELS  = ["mistral","llama3.2", "llama3.1", "llama3", "llama2", "gemma2", "phi3"]
+OLLAMA_MODELS  = ["phi3", "mistral","llama3.2", "llama3.1", "llama3", "llama2", "gemma2"]
 OPENAI_MODELS  = ["gpt-4o-mini", "gpt-4o"]
 CLAUDE_MODELS  = ["claude-haiku-4-5-20251001", "claude-sonnet-4-6"]
 
 
 def ollama_is_running() -> bool:
-    """Return True if the Ollama server is reachable at localhost:11434."""
+    """Return True if the Ollama server is reachable at localhost:11500."""
     try:
-        urllib.request.urlopen("http://localhost:11434", timeout=1)
+        urllib.request.urlopen("http://localhost:11500", timeout=1)
         return True
     except Exception:
         return False
@@ -385,7 +385,7 @@ def ollama_is_running() -> bool:
 def ollama_list_models() -> list[str]:
     """Return models currently pulled in Ollama (empty list on failure)."""
     try:
-        with urllib.request.urlopen("http://localhost:11434/api/tags", timeout=2) as r:
+        with urllib.request.urlopen("http://localhost:11500/api/tags", timeout=2) as r:
             data = _json.loads(r.read())
             return [m["name"].split(":")[0] for m in data.get("models", [])]
     except Exception:
@@ -496,7 +496,7 @@ class LLMGenerator:
             "stream": False,
         }).encode()
         req = urllib.request.Request(
-            "http://localhost:11434/api/chat",
+            "http://localhost:11500/api/chat",
             data=payload,
             headers={"Content-Type": "application/json"},
             method="POST",
