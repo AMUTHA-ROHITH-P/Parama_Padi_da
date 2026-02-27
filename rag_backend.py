@@ -368,7 +368,7 @@ class VectorStore:
 # ── LLM Generator ─────────────────────────────────────────────────────────────
 
 # Models available per backend
-OLLAMA_MODELS  = ["phi3", "mistral","llama3.2", "llama3.1", "llama3", "llama2", "gemma2"]
+OLLAMA_MODELS  = ["qwen2:1.5b","phi3", "mistral","llama3.2", "llama3.1", "llama3", "llama2", "gemma2"]
 OPENAI_MODELS  = ["gpt-4o-mini", "gpt-4o"]
 CLAUDE_MODELS  = ["claude-haiku-4-5-20251001", "claude-sonnet-4-6"]
 
@@ -387,7 +387,7 @@ def ollama_list_models() -> list[str]:
     try:
         with urllib.request.urlopen("http://localhost:11500/api/tags", timeout=2) as r:
             data = _json.loads(r.read())
-            return [m["name"].split(":")[0] for m in data.get("models", [])]
+            return [m["name"] for m in data.get("models", [])]
     except Exception:
         return []
 
@@ -473,7 +473,7 @@ class LLMGenerator:
     # ── Ollama / Llama ────────────────────────────────────────────────────────
 
     def _call_ollama(self, prompt: str) -> str:
-        model = self.model or self._best_ollama_model()
+        model = self._best_ollama_model()
 
         # Prefer the ollama Python library if installed
         if HAS_OLLAMA_LIB:
@@ -512,7 +512,7 @@ class LLMGenerator:
             if preferred in available:
                 return preferred
         # Return first available, or fallback
-        return available[0] if available else "llama3.2"
+        return available[0] if available else "qwen2:1.5b"
 
     # ── OpenAI ────────────────────────────────────────────────────────────────
 
