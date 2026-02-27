@@ -54,39 +54,39 @@ EduRAG is a **Retrieval-Augmented Generation (RAG)** application built for stude
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        STREAMLIT UI (app.py)                    │
-│  ┌──────────────┐  ┌───────────────────────┐  ┌─────────────┐  │
-│  │  Sidebar     │  │   Chat Interface      │  │  Stats Bar  │  │
-│  │  - Backend   │  │   - Q&A History       │  │  - Docs     │  │
-│  │    selector  │  │   - Source badges     │  │  - Chunks   │  │
-│  │  - PDF upload│  │   - Suggestions       │  │  - Q&As     │  │
-│  └──────┬───────┘  └──────────┬────────────┘  └─────────────┘  │
-└─────────┼────────────────────┼─────────────────────────────────┘
+│  ┌──────────────┐  ┌───────────────────────┐  ┌─────────────┐   │
+│  │  Sidebar     │  │   Chat Interface      │  │  Stats Bar  │   │
+│  │  - Backend   │  │   - Q&A History       │  │  - Docs     │   │
+│  │    selector  │  │   - Source badges     │  │  - Chunks   │   │
+│  │  - PDF upload│  │   - Suggestions       │  │  - Q&As     │   │
+│  └──────┬───────┘  └──────────┬────────────┘  └─────────────┘   │
+└─────────┼────────────────────┼──────────────────────────────────┘
           │ ingest_pdf()        │ answer()
           ▼                    ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                     RAGBackend (rag_backend.py)                 │
 │                                                                 │
-│  ┌─────────────┐   ┌──────────────┐   ┌──────────────────────┐ │
-│  │ PDFExtractor│ → │ TextChunker  │ → │   EmbeddingModel     │ │
+│  ┌─────────────┐   ┌──────────────┐   ┌───────────────────────┐ │
+│  │ PDFExtractor│ → │ TextChunker  │ → │   EmbeddingModel      │ │
 │  │             │   │              │   │ (sentence-transformers│ │
-│  │ PyMuPDF     │   │ 400-word     │   │  or TF-IDF fallback) │ │
-│  │ pdfplumber  │   │ chunks,      │   └──────────┬───────────┘ │
-│  │ (fallback)  │   │ 80-word      │              │             │
-│  └─────────────┘   │ overlap      │              ▼             │
-│                    └──────────────┘   ┌──────────────────────┐ │
-│                                       │    VectorStore        │ │
-│                                       │ (FAISS or NumPy)      │ │
-│                                       │  - add()              │ │
-│                                       │  - search() + MMR     │ │
-│                                       └──────────┬───────────┘ │
-│                                                  │             │
-│                                       ┌──────────▼───────────┐ │
-│                                       │    LLMGenerator       │ │
-│                                       │  1. Ollama (local)    │ │
-│                                       │  2. OpenAI            │ │
-│                                       │  3. Anthropic         │ │
-│                                       │  4. Extractive        │ │
-│                                       └──────────────────────┘ │
+│  │ PyMuPDF     │   │ 400-word     │   │  or TF-IDF fallback)  │ │
+│  │ pdfplumber  │   │ chunks,      │   └──────────┬────────────┘ │
+│  │ (fallback)  │   │ 80-word      │              │              │
+│  └─────────────┘   │ overlap      │              ▼              │
+│                    └──────────────┘   ┌──────────────────────┐  │
+│                                       │    VectorStore       │  │
+│                                       │ (FAISS or NumPy)     │  │
+│                                       │  - add()             │  │
+│                                       │  - search() + MMR    │  │
+│                                       └──────────┬───────────┘  │
+│                                                  │              │
+│                                       ┌──────────▼───────────┐  │
+│                                       │    LLMGenerator      │  │
+│                                       │  1. Ollama (local)   │  │
+│                                       │  2. OpenAI           │  │
+│                                       │  3. Anthropic        │  │
+│                                       │  4. Extractive       │  │
+│                                       └──────────────────────┘  │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
