@@ -16,7 +16,7 @@ st.markdown("""
 <style>
 .stApp { background-color: #f0f4f8; }
 [data-testid="stSidebar"] { background: linear-gradient(135deg, #1e3a5f 0%, #800080 100%)}
-[data-testid="stSidebar"] * { color: Black !important; }
+[data-testid="stSidebar"] * { color: black !important; }
 [data-testid="stSidebar"] .stButton > button {
     background-color: #2ecc71; color: Black !important; border: none;
     border-radius: 8px; width: 100%; font-weight: bold; }
@@ -157,7 +157,7 @@ if uploaded_files:
 st.markdown("""
 <div class="hero">
   <h1>📚 Fusion Learning – AI Study Assistant</h1>
-  <p>Upload your study materials and ask anything. Powered by Llama, GPT, Claude — or no API at all.</p>
+  <p>Upload your study materials and ask anything. Powered by Ollama, GPT, Claude — or no API at all.</p>
 </div>
 """, unsafe_allow_html=True)
 
