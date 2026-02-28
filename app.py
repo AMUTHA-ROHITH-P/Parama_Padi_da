@@ -53,7 +53,7 @@ if "uploaded_docs" not in st.session_state: st.session_state.uploaded_docs = []
 rag: RAGBackend = st.session_state.rag
 
 with st.sidebar:
-    st.markdown("## 📚 EduRAG")
+    st.markdown("## 📚 Fusion Learning")
     st.markdown("*Your AI-powered study companion*")
     st.divider()
 
@@ -156,7 +156,7 @@ if uploaded_files:
 
 st.markdown("""
 <div class="hero">
-  <h1>📚 EduRAG – AI Study Assistant</h1>
+  <h1>📚 Fusion Learning – AI Study Assistant</h1>
   <p>Upload your study materials and ask anything. Powered by Llama, GPT, Claude — or no API at all.</p>
 </div>
 """, unsafe_allow_html=True)
