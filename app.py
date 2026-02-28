@@ -9,16 +9,16 @@ from rag_backend import (
     ollama_is_running, ollama_list_models,
 )
 
-st.set_page_config(page_title="EduRAG – AI Study Assistant", page_icon="📚",
+st.set_page_config(page_title="Fusion Learning – AI Study Assistant", page_icon="📚",
                    layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
 <style>
 .stApp { background-color: #f0f4f8; }
-[data-testid="stSidebar"] { background-color: #1e3a5f; }
-[data-testid="stSidebar"] * { color: white !important; }
+[data-testid="stSidebar"] { background: linear-gradient(135deg, #1e3a5f 0%, #800080 100%)}
+[data-testid="stSidebar"] * { color: Black !important; }
 [data-testid="stSidebar"] .stButton > button {
-    background-color: #2ecc71; color: white !important; border: none;
+    background-color: #2ecc71; color: Black !important; border: none;
     border-radius: 8px; width: 100%; font-weight: bold; }
 .chat-user {
     background: #1e3a5f; color: white; border-radius: 18px 18px 4px 18px;
@@ -33,12 +33,12 @@ st.markdown("""
     border: 1px solid #bee3f8; border-radius: 20px;
     padding: 0.2rem 0.8rem; font-size: 0.8rem; margin: 0.2rem; }
 .stat-box {
-    background: linear-gradient(135deg, #1e3a5f, #2980b9);
+    background: linear-gradient(135deg, #1e3a5f, #800080);
     color: white; border-radius: 10px; padding: 1rem; text-align: center; }
 .stat-number { font-size: 2rem; font-weight: bold; }
 .stat-label  { font-size: 0.85rem; opacity: 0.85; }
 .hero {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2980b9 100%);
+    background: linear-gradient(135deg, #1e3a5f 0%, #800080 100%);
     color: white; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem;
     text-align: center; }
 .hero h1 { margin: 0; font-size: 2.2rem; }
@@ -53,7 +53,7 @@ if "uploaded_docs" not in st.session_state: st.session_state.uploaded_docs = []
 rag: RAGBackend = st.session_state.rag
 
 with st.sidebar:
-    st.markdown("## 📚 EduRAG")
+    st.markdown("## 📚 Fusion Learning")
     st.markdown("*Your AI-powered study companion*")
     st.divider()
 
@@ -156,7 +156,7 @@ if uploaded_files:
 
 st.markdown("""
 <div class="hero">
-  <h1>📚 EduRAG – AI Study Assistant</h1>
+  <h1>📚 Fusion Learning – AI Study Assistant</h1>
   <p>Upload your study materials and ask anything. Powered by Llama, GPT, Claude — or no API at all.</p>
 </div>
 """, unsafe_allow_html=True)
